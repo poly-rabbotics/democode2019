@@ -53,29 +53,40 @@ public class Robot extends IterativeRobot {
   @Override
   public void robotInit() {
     
+    //Construct the drive motors
     left1 = new Spark(8);
     left2 = new Spark(7);
     right1 = new Spark(6);
     right2 = new Spark(5);
 
+    //Construct the intake motors
     inLeft = new VictorSP(0);
     inRight = new VictorSP(1);
+    //Construct the arm (up/down) motor
     arm = new VictorSP(4);
+    //Construct the drive wheels on the lift, that move the robot
+    //when the regular drivetrain is lifted off the ground
     lowWheel1 = new VictorSP(3);
     lowWheel2 = new VictorSP(2);
 
+    //Construct the two joysticks
     joy0 = new Joystick(0);
     joy1 = new Joystick(1);
 
+    //Construct the limit switches for the arm
     topSwitch = new DigitalInput(2);
     bottomSwitch = new DigitalInput(3);
 
+    //Construct the drivetrain
     drive = new RobotDrive(left1, left2, right1, right2);
 
-    latchPusher = new DoubleSolenoid(0, 3);
+    //Construct the 3 solenoids on the robot
+    latchPusher = new DoubleSolenoid(0, 3); //this one solenoid controls the 3 air 
+                                            //cylinders in the hatch mechanism
     liftBack = new DoubleSolenoid(1, 4);
     liftFront = new DoubleSolenoid(2, 5);
 
+    //Code to send video to the driver station
     CameraServer.getInstance().startAutomaticCapture(0);
     CameraServer.getInstance().startAutomaticCapture(1);
     
@@ -130,8 +141,8 @@ public class Robot extends IterativeRobot {
 
 //DRIVE 
 
-    magnitude = -1*joy0.getRawAxis(1);
-    rotation = -1*joy0.getRawAxis(4);
+    magnitude = -1 * joy0.getRawAxis(1);
+    rotation = -1 * joy0.getRawAxis(4);
 
     drive.arcadeDrive(magnitude, rotation, true);
 
