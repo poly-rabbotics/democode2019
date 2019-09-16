@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.RobotDrive;
+import frc.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -206,32 +207,32 @@ public class Robot extends IterativeRobot {
     
 
 // CLIMB MECHANISM
-
+    new Climb(liftBack, liftFront, lowWheel1, lowWheel2, joy0, 6, 5).run();
+    /*Climb climbMechanism = new Climb(liftBack, liftFront);
     if(joy0.getRawButton(6)){// right bumper
-      liftBack.set(Value.kForward);
+      climbMechanism.raiseBack(); //liftBack.set(Value.kForward);
     }
     else {
-      liftBack.set(Value.kReverse);
+      climbMechanism.lowerBack(); //liftBack.set(Value.kReverse);
     }//holding deploys back lift
 
     if(joy0.getRawButton(5)){// left bumper
-      liftFront.set(Value.kForward);
+      climbMechanism.raiseFront();//liftFront.set(Value.kForward);
     }
     else {
-      liftFront.set(Value.kReverse);
+      climbMechanism.lowerFront();//liftFront.set(Value.kReverse);
     }//holding deploys front lift 
 
               if(joy0.getRawButton(4) && joy0.getRawButton(6) ){ 
-                lowWheel1.set(.69); //nice
-                lowWheel2.set(.69); //nice
+                climbMechanism.driveForward();
+                //lowWheel1.set(.69); //nice
+                //lowWheel2.set(.69); //nice
               }
               else {
-                lowWheel1.set(0);
-                lowWheel2.set(0);
-              } //if back lift is deployed and Y is pressed, Y drives low wheels forward
-
-  
-    
+                climbMechanism.stop();
+                //lowWheel1.set(0);
+                //lowWheel2.set(0);
+              } //if back lift is deployed and Y is pressed, Y drives low wheels forward*/
   }
 
   /**
