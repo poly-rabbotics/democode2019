@@ -1,4 +1,4 @@
-package frc.subsystems;
+package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -8,37 +8,39 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Climb {
     private DoubleSolenoid back, front;
     VictorSP lowWheel1, lowWheel2;
+    Joystick joystick;
     int cycleCount;
     public Climb(DoubleSolenoid back, DoubleSolenoid front, VictorSP lowWheel1, VictorSP lowWheel2, Joystick joystick, int backButtonChannel, int frontButtonChannel) {
         this.back = back;
         this.front = front;
         this.lowWheel1 = lowWheel1;
         this.lowWheel2 = lowWheel2;
+        this.joystick = joystick;
         cycleCount = 0;
     }
-    public raiseFront() {
-        liftFront.set(Value.kForward);
+    public void raiseFront() {
+        front.set(Value.kForward);
     }
-    public raiseBack() {
-        liftBack.set(Value.kForward);
+    public void raiseBack() {
+        back.set(Value.kForward);
     }
-    public lowerFront() {
-        liftFront.set(Value.kReverse);
+    public void lowerFront() {
+        front.set(Value.kReverse);
     }
-    public lowerBack() {
-        liftBack.set(Value.kReverse);
+    public void lowerBack() {
+        back.set(Value.kReverse);
     }
-    public driveForward() {
+    public void driveForward() {
         lowWheel1.set(0.7);
         lowWheel2.set(0.7);
     }
-    public stop() {
+    public void stop() {
         lowWheel1.set(0);
         lowWheel2.set(0);
     }
-    public autoRaise(double period, double dutyCycleBack, double dutyCycleFront) {
+    public void autoRaise(double period, double dutyCycleBack, double dutyCycleFront) {
         cycleCount++;
-        int cyclesPerPeriod = period / 0.02;
+        int cyclesPerPeriod = (int) (period / 0.02);
         double proportionThroughPeriod = (double) cycleCount / cyclesPerPeriod; // This is the proportion of the way we are in time through a period of oscillation of solenoid input
         if (proportionThroughPeriod >= 1) {
             cycleCount = 0;
@@ -58,7 +60,7 @@ public class Climb {
             System.out.println("LF");
         }
     }
-    public run() {
+    public void run() {
         if(joystick.getRawButton(6)){// right bumper
             autoRaise(0.25, 0.8, 1);
         }
@@ -73,7 +75,7 @@ public class Climb {
           lowerFront();
         }//holding deploys front lift
 
-        if(joystick.getRawButton(4) && joy0.getRawButton(6) ){ 
+        if(joystick.getRawButton(4) && joystick.getRawButton(6) ){ 
             driveForward();
         }
         else {
